@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "sNoffInged",
+    "slug": "sNoffInged",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "sNoffInged"
+}
