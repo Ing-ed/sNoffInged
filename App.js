@@ -29,6 +29,7 @@ export default function App() {
       <View style = {syle.View}>
         <ScrollView>
           {devices}
+          <Text>KK</Text>
         </ScrollView>
       </View>
       <TextInput onChangeText={(val) => setNombre(val)} style={syle.Input} placeholder='Dispositivo'></TextInput>
