@@ -18,22 +18,38 @@ export default function App() {
     setModal(false);
   }
 
+  function Delete(indice){
+    console.log(indice)
+    let arr = [...entradas]
+    arr.splice(indice,1)
+    setEntradas(arr)
+    FS.writeAsStringAsync(FS.documentDirectory + "devices.txt",JSON.stringify(arr))
+      .then((r) => ToastAndroid.show("Dispositivo borrado",ToastAndroid.LONG))
+      .catch((e) => console.log("No se pudo borrar",e))
+
+    console.log(arr)
+  }
+
   function Abrir(name){
     setDevice(name);
     setModal(true);
   }
 
   function Guardar(){
-    setEntradas([...entradas,nombre])  
-    FS.writeAsStringAsync(FS.documentDirectory + "devices.txt",JSON.stringify(entradas))
+    let arr = [...entradas,nombre]
+    setEntradas(arr)
+    // setEntradas([...entradas,nombre]) 
+    console.log(arr,"arr")
+
+    FS.writeAsStringAsync(FS.documentDirectory + "devices.txt",JSON.stringify(arr))
     .then((r) => ToastAndroid.show("Dispositivo añadido",ToastAndroid.LONG))
     .catch((e) => console.log("No se pudo guardar",e))
-    console.log(entradas);
+    // console.log(entradas);
   }
   useEffect(() => {
     FS.readAsStringAsync(FS.documentDirectory + "devices.txt")
     .then((r) =>{
-      console.log(r)
+      console.log(r, "aca")
       setEntradas(JSON.parse(r))
     })
     .catch((e) => console.log("error",e))
@@ -44,7 +60,7 @@ export default function App() {
         {modal && <MyModal name={device} CloseModal={CloseModal}/>}
         <ScrollView style={syle.Scroll}>
           {entradas.map((item,index) => {
-            return(<Button key={index} text={item} style={syle.ScrollButton} onPress={() =>Abrir(item)}/>);}
+            return(<Button key={index} text={item} style={syle.ScrollButton} onPress={() =>Abrir(item)} onLongPress = {Delete} indice = {index}/>);}
           )}
         </ScrollView>
       </View>
